@@ -30,6 +30,30 @@ function gatherVars($button) {
     .toArray()
 }
 
+function gatherOptions($button) {
+  const options = {}
+
+  $button
+    .closest('.text')
+    .find('.form_answers .answer')
+    .each(function() {
+      const varName = $(this)
+        .find('.blank_id')
+        .text()
+
+      const optionText = $(this)
+        .find('.short_answer .limit_text')
+        .val()
+
+      if (!options.hasOwnProperty(varName)) {
+        options[varName] = []
+      }
+      options[varName].push(optionText)
+    })
+
+  return options
+}
+
 $(() => {
   $('.multi_answer_sets .blank_id_select').after(
     '<button class="aj_copy_answers_button">Copy Answers</button>'
@@ -39,7 +63,10 @@ $(() => {
     e.preventDefault()
 
     const vars = gatherVars($(this))
+    const options = gatherOptions($(this))
+
 
     console.log(vars)
+    console.log(options)
   })
 })
