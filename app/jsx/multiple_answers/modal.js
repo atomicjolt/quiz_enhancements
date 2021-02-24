@@ -20,14 +20,18 @@ import $ from 'jquery'
 import 'jqueryui/dialog'
 import ReactDOM from 'react-dom'
 
-export default function createModal() {
-  const container = document.createElement('div')
+export default class Modal {
+  constructor() {
+    this.content = document.createElement('div')
 
-  $(container).dialog({
-    title: 'Copy Answers',
-    // if there's no react component, ReactDOM simply returns false
-    beforeClose: () => ReactDOM.unmountComponentAtNode(container)
-  })
+    $(this.content).dialog({
+      title: 'Copy Answers',
+      // if there's no react component, ReactDOM simply returns false
+      beforeClose: () => ReactDOM.unmountComponentAtNode(this.content)
+    })
+  }
 
-  return container
+  close() {
+    $(this.content).dialog('close')
+  }
 }

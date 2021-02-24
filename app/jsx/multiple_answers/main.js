@@ -19,9 +19,10 @@
 import $ from 'jquery'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import createModal from './modal'
-import {gatherVars, gatherOptions} from './gather_data'
-import CopyAnswers from './copy_answers'
+import Modal from './modal'
+import {gatherCurrentVar, gatherVars, gatherOptions} from './gather_data'
+import SelectAnswers from './select_answers'
+import copyAnswers from './copy_answers'
 
 $(() => {
   $('.multi_answer_sets .blank_id_select').after(
@@ -31,11 +32,27 @@ $(() => {
   $('#questions').delegate('.aj_copy_answers_button', 'click', function(e) {
     e.preventDefault()
 
+    const {id: currentVar, index: currentVarIndex} = gatherCurrentVar($(this))
     const vars = gatherVars($(this))
     const options = gatherOptions($(this))
 
-    const modalContent = createModal()
+    const $answers = $(this)
+      .closest('.text')
+      .find('.form_answers')
 
-    ReactDOM.render(<CopyAnswers vars={vars} options={options} />, modalContent)
+    const modal = new Modal()
+
+    ReactDOM.render(
+      <SelectAnswers
+        vars={vars}
+        options={options}
+        onCancel={() => modal.close()}
+        onSubmit={selectedOptions => {
+          copyAnswers(currentVar, currentVarIndex, selectedOptions, $answers)
+          modal.close()
+        }}
+      />,
+      modal.content
+    )
   })
 })

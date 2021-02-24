@@ -18,6 +18,15 @@
 
 import $ from 'jquery'
 
+export function gatherCurrentVar($button) {
+  const $select = $button.parent().find('.blank_id_select')
+
+  return {
+    id: $select.val(),
+    index: $select[0].selectedIndex
+  }
+}
+
 export function gatherVars($button) {
   return $button
     .parent()

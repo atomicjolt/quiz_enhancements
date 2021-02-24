@@ -16,38 +16,23 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import React, {useState} from 'react'
-import PropTypes from 'prop-types'
+import makeFormAnswer from './make_form_answer'
 
-export default function CopyAnswers(props) {
-  const {vars, options} = props
+export default function copyAnswers(currentVar, currentVarIndex, selectedOptions, $answers) {
+  const baseAnswer = {
+    comments: 'Response if the student chooses this answer',
+    answer_type: 'short_answer',
+    question_type: 'fill_in_multiple_blanks_question',
+    blank_id: currentVar,
+    blank_index: currentVarIndex
+  }
 
-  const [selectedVar, setSelectedVar] = useState(vars[0])
-  const currentOptions = options[selectedVar]
+  selectedOptions.forEach(option => {
+    const $answer = makeFormAnswer({
+      ...baseAnswer,
+      answer_text: option
+    })
 
-  return (
-    <div>
-      <p>
-        Please choose a variable to copy answers from. This will replace any answers in the current
-        variable
-      </p>
-      <select value={selectedVar} onChange={e => setSelectedVar(e.target.value)}>
-        {vars.map(varName => (
-          <option key={varName} value={varName}>
-            {varName}
-          </option>
-        ))}
-      </select>
-      <ul>
-        {currentOptions.map(optionName => (
-          <li key={optionName}>{optionName}</li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
-CopyAnswers.propTypes = {
-  vars: PropTypes.arrayOf(PropTypes.string),
-  options: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string))
+    $answers.append($answer)
+  })
 }
