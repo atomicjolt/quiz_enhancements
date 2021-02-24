@@ -17,25 +17,17 @@
  */
 
 import $ from 'jquery'
-import React from 'react'
+import 'jqueryui/dialog'
 import ReactDOM from 'react-dom'
-import createModal from './modal'
-import {gatherVars, gatherOptions} from './gather_data'
-import CopyAnswers from './copy_answers'
 
-$(() => {
-  $('.multi_answer_sets .blank_id_select').after(
-    '<button class="aj_copy_answers_button">Copy Answers</button>'
-  )
+export default function createModal() {
+  const container = document.createElement('div')
 
-  $('#questions').delegate('.aj_copy_answers_button', 'click', function(e) {
-    e.preventDefault()
-
-    const vars = gatherVars($(this))
-    const options = gatherOptions($(this))
-
-    const modalContent = createModal()
-
-    ReactDOM.render(<CopyAnswers vars={vars} options={options} />, modalContent)
+  $(container).dialog({
+    title: 'Copy Answers',
+    // if there's no react component, ReactDOM simply returns false
+    beforeClose: () => ReactDOM.unmountComponentAtNode(container)
   })
-})
+
+  return container
+}

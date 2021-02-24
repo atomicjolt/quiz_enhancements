@@ -17,25 +17,39 @@
  */
 
 import $ from 'jquery'
-import React from 'react'
-import ReactDOM from 'react-dom'
-import createModal from './modal'
-import {gatherVars, gatherOptions} from './gather_data'
-import CopyAnswers from './copy_answers'
 
-$(() => {
-  $('.multi_answer_sets .blank_id_select').after(
-    '<button class="aj_copy_answers_button">Copy Answers</button>'
-  )
+export function gatherVars($button) {
+  return $button
+    .parent()
+    .find('.blank_id_select option')
+    .not('.shown_when_no_other_options_available')
+    .not(':selected')
+    .map(function() {
+      return this.innerText
+    })
+    .toArray()
+}
 
-  $('#questions').delegate('.aj_copy_answers_button', 'click', function(e) {
-    e.preventDefault()
+export function gatherOptions($button) {
+  const options = {}
 
-    const vars = gatherVars($(this))
-    const options = gatherOptions($(this))
+  $button
+    .closest('.text')
+    .find('.form_answers .answer')
+    .each(function() {
+      const varName = $(this)
+        .find('.blank_id')
+        .text()
 
-    const modalContent = createModal()
+      const optionText = $(this)
+        .find('.short_answer input')
+        .val()
 
-    ReactDOM.render(<CopyAnswers vars={vars} options={options} />, modalContent)
-  })
-})
+      if (!options.hasOwnProperty(varName)) {
+        options[varName] = []
+      }
+      options[varName].push(optionText)
+    })
+
+  return options
+}
