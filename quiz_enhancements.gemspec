@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'aqt/version'
+require 'quiz_enhancements/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "aqt"
-  spec.version       = Aqt::VERSION
+  spec.name          = "quiz_enhancements"
+  spec.version       = QuizEnhancements::VERSION
   spec.authors       = ["Ryker Blunck"]
   spec.email         = ["rykerblunck@gmail.com"]
 

@@ -1,3 +1,3 @@
-module Aqt
+module QuizEnhancements
   VERSION = "0.1.0"
 end
