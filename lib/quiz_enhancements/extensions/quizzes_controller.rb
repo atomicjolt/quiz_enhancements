@@ -1,7 +1,7 @@
-module Aqt::Extensions::QuizzesController
+module QuizEnhancements::Extensions::QuizzesController
   def edit
-    css_bundle(:main, plugin: :aqt)
-    js_bundle(:quiz_edit, plugin: :aqt)
+    css_bundle(:main, plugin: :quiz_enhancements)
+    js_bundle(:quiz_edit, plugin: :quiz_enhancements)
     super
   end
 end
