@@ -22,7 +22,7 @@ import ReactDOM from 'react-dom'
 import Modal from './modal'
 import {gatherCurrentVar, gatherVars, gatherOptions, gatherQuestionType} from './gather_data'
 import SelectAnswers from './select_answers'
-import copyAnswers from './copy_answers'
+import {copyAnswers, deleteCurrentAnswers} from './edit_answers'
 
 $(() => {
   $('.multi_answer_sets .blank_id_select').after(
@@ -49,6 +49,7 @@ $(() => {
         options={options}
         onCancel={() => modal.close()}
         onSubmit={selectedOptions => {
+          deleteCurrentAnswers($(this), currentVarIndex)
           copyAnswers(questionType, currentVar, currentVarIndex, selectedOptions, $answers)
           modal.close()
         }}

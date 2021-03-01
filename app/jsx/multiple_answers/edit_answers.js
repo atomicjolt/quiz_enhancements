@@ -26,13 +26,7 @@ function determineWeight(questionType, isCorrect) {
   return isCorrect ? 100 : 0
 }
 
-export default function copyAnswers(
-  questionType,
-  currentVar,
-  currentVarIndex,
-  selectedOptions,
-  $answers
-) {
+export function copyAnswers(questionType, currentVar, currentVarIndex, selectedOptions, $answers) {
   const baseAnswer = {
     comments: 'Response if the student chooses this answer',
     answer_type: 'short_answer',
@@ -51,4 +45,11 @@ export default function copyAnswers(
 
     $answers.append($answer)
   })
+}
+
+export function deleteCurrentAnswers($button, currentVarIndex) {
+  $button
+    .closest('.text')
+    .find(`.answer_idx_${currentVarIndex} .delete_answer_link`)
+    .click()
 }
