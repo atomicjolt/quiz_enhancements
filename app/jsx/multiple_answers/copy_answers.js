@@ -18,20 +18,35 @@
 
 import makeFormAnswer from './make_form_answer'
 
-export default function copyAnswers(currentVar, currentVarIndex, selectedOptions, $answers) {
+function determineWeight(questionType, isCorrect) {
+  if (questionType === 'fill_in_multiple_blanks_question') {
+    return 0
+  }
+
+  return isCorrect ? 100 : 0
+}
+
+export default function copyAnswers(
+  questionType,
+  currentVar,
+  currentVarIndex,
+  selectedOptions,
+  $answers
+) {
   const baseAnswer = {
     comments: 'Response if the student chooses this answer',
     answer_type: 'short_answer',
-    question_type: 'fill_in_multiple_blanks_question',
+    question_type: questionType,
     blank_id: currentVar,
     blank_index: currentVarIndex
   }
 
-  selectedOptions.forEach(({text, comment}) => {
+  selectedOptions.forEach(({text, comment, isCorrect}) => {
     const $answer = makeFormAnswer({
       ...baseAnswer,
       answer_text: text,
-      answer_comment_html: comment
+      answer_comment_html: comment,
+      answer_weight: determineWeight(questionType, isCorrect)
     })
 
     $answers.append($answer)

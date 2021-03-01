@@ -58,11 +58,20 @@ export function gatherOptions($button) {
         .find('.comment input[name=answer_comment_html]')
         .val()
 
+      const isCorrect = $(this).hasClass('correct_answer')
+
       if (!options.hasOwnProperty(varName)) {
         options[varName] = []
       }
-      options[varName].push({text, comment})
+      options[varName].push({text, comment, isCorrect})
     })
 
   return options
+}
+
+export function gatherQuestionType($button) {
+  return $button
+    .closest('.question')
+    .find('.question_type')
+    .val()
 }

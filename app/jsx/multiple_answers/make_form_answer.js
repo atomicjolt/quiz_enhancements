@@ -29,14 +29,11 @@ export default function makeFormAnswer(data) {
     .hide()
     .filter('.' + answer.answer_type)
     .show()
-
   // answer.answer_weight = numberHelper.parse(answer.answer_weight)
 
-  // if (isNaN(answer.answer_weight)) {
-  //   answer.answer_weight = 0
-  // }
-  answer.answer_weight = 0
-
+  if (isNaN(answer.answer_weight)) {
+    answer.answer_weight = 0
+  }
   quiz.updateFormAnswer($answer, answer, true)
   $answer.show()
   return $answer

@@ -20,7 +20,7 @@ import $ from 'jquery'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Modal from './modal'
-import {gatherCurrentVar, gatherVars, gatherOptions} from './gather_data'
+import {gatherCurrentVar, gatherVars, gatherOptions, gatherQuestionType} from './gather_data'
 import SelectAnswers from './select_answers'
 import copyAnswers from './copy_answers'
 
@@ -35,6 +35,7 @@ $(() => {
     const {id: currentVar, index: currentVarIndex} = gatherCurrentVar($(this))
     const vars = gatherVars($(this))
     const options = gatherOptions($(this))
+    const questionType = gatherQuestionType($(this))
 
     const $answers = $(this)
       .closest('.text')
@@ -48,7 +49,7 @@ $(() => {
         options={options}
         onCancel={() => modal.close()}
         onSubmit={selectedOptions => {
-          copyAnswers(currentVar, currentVarIndex, selectedOptions, $answers)
+          copyAnswers(questionType, currentVar, currentVarIndex, selectedOptions, $answers)
           modal.close()
         }}
       />,

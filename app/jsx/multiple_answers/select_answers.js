@@ -62,7 +62,8 @@ CopyAnswers.propTypes = {
     PropTypes.arrayOf(
       PropTypes.shape({
         text: PropTypes.string,
-        comment: PropTypes.string
+        comment: PropTypes.string,
+        isCorrect: PropTypes.bool
       })
     )
   ).isRequired,
