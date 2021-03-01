@@ -50,14 +50,18 @@ export function gatherOptions($button) {
         .find('.blank_id')
         .text()
 
-      const optionText = $(this)
+      const text = $(this)
         .find('.short_answer input')
+        .val()
+
+      const comment = $(this)
+        .find('.comment input[name=answer_comment_html]')
         .val()
 
       if (!options.hasOwnProperty(varName)) {
         options[varName] = []
       }
-      options[varName].push(optionText)
+      options[varName].push({text, comment})
     })
 
   return options

@@ -27,10 +27,11 @@ export default function copyAnswers(currentVar, currentVarIndex, selectedOptions
     blank_index: currentVarIndex
   }
 
-  selectedOptions.forEach(option => {
+  selectedOptions.forEach(({text, comment}) => {
     const $answer = makeFormAnswer({
       ...baseAnswer,
-      answer_text: option
+      answer_text: text,
+      answer_comment_html: comment
     })
 
     $answers.append($answer)

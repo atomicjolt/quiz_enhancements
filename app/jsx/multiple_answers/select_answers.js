@@ -44,8 +44,8 @@ export default function CopyAnswers(props) {
         ))}
       </select>
       <ul>
-        {currentOptions.map((optionName, i) => (
-          <li key={`${i}-${optionName}`}>{optionName}</li>
+        {currentOptions.map(({text}, i) => (
+          <li key={`${i}-${text}`}>{text}</li>
         ))}
       </ul>
       <button type="button" onClick={onCancel}>
@@ -58,7 +58,14 @@ export default function CopyAnswers(props) {
 
 CopyAnswers.propTypes = {
   vars: PropTypes.arrayOf(PropTypes.string).isRequired,
-  options: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+  options: PropTypes.objectOf(
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        text: PropTypes.string,
+        comment: PropTypes.string
+      })
+    )
+  ).isRequired,
   onCancel: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired
 }
