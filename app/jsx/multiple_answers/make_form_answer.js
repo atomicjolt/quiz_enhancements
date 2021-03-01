@@ -18,22 +18,8 @@
 
 import $ from 'jquery'
 
-const quiz = {
-  defaultAnswerData: {
-    answer_type: 'select_answer',
-    answer_comment: '',
-    answer_weight: 0,
-    numerical_answer_type: 'exact_answer',
-    answer_exact: '0',
-    answer_error_margin: '0',
-    answer_range_start: '0',
-    answer_range_end: '0',
-    answer_approximate: '0',
-    answer_precision: '10'
-  }
-}
-
 export default function makeFormAnswer(data) {
+  const {quiz} = window
   const answer = $.extend({}, quiz.defaultAnswerData, data)
   const $answer = $('#form_answer_template')
     .clone(true)
@@ -43,12 +29,14 @@ export default function makeFormAnswer(data) {
     .hide()
     .filter('.' + answer.answer_type)
     .show()
+
   // answer.answer_weight = numberHelper.parse(answer.answer_weight)
 
   // if (isNaN(answer.answer_weight)) {
   //   answer.answer_weight = 0
   // }
   answer.answer_weight = 0
+
   quiz.updateFormAnswer($answer, answer, true)
   $answer.show()
   return $answer
