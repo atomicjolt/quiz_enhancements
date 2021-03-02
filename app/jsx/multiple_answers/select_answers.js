@@ -20,7 +20,7 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 
 export default function CopyAnswers(props) {
-  const {vars, options, onCancel, onSubmit} = props
+  const {vars, options, onCancel, onSubmit, willDisableRegrade} = props
 
   const [selectedVar, setSelectedVar] = useState(vars[0])
   const currentOptions = options[selectedVar]
@@ -36,6 +36,13 @@ export default function CopyAnswers(props) {
         Please choose a variable to copy answers from. This will replace any answers in the current
         variable
       </p>
+      {willDisableRegrade && (
+        <p>
+          Deleting answers from a question with submissions disables the option to regrade this
+          question
+        </p>
+      )}
+
       <select value={selectedVar} onChange={e => setSelectedVar(e.target.value)}>
         {vars.map(varName => (
           <option key={varName} value={varName}>
@@ -67,6 +74,7 @@ CopyAnswers.propTypes = {
       })
     )
   ).isRequired,
+  willDisableRegrade: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired
 }

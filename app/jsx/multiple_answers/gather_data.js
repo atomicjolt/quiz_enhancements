@@ -75,3 +75,15 @@ export function gatherQuestionType($button) {
     .find('.question_type')
     .val()
 }
+
+// based on logic in $('.delete_answer_link').click() in canvas
+export function gatherWillDisableRegrade($button) {
+  const $holder = $button.closest('.question_holder')
+  const $regradeOpt = $holder.find('span.regrade_option')
+
+  const disabled = $regradeOpt.text() === 'disabled'
+  const isNew = $holder.find('#question_new').length > 0
+  const hasSubmissions = !!$('#student_submissions_warning').length
+
+  return hasSubmissions && !disabled && !isNew
+}

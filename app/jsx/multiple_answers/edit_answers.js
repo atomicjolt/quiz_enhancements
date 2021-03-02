@@ -16,7 +16,7 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-import makeFormAnswer from './make_form_answer'
+import {makeFormAnswer} from './canvas_functions'
 
 function determineWeight(questionType, isCorrect) {
   if (questionType === 'fill_in_multiple_blanks_question') {

@@ -18,7 +18,7 @@
 
 import $ from 'jquery'
 
-export default function makeFormAnswer(data) {
+export function makeFormAnswer(data) {
   const {quiz} = window
   const answer = $.extend({}, quiz.defaultAnswerData, data)
   const $answer = $('#form_answer_template')
@@ -37,4 +37,14 @@ export default function makeFormAnswer(data) {
   quiz.updateFormAnswer($answer, answer, true)
   $answer.show()
   return $answer
+}
+
+export function disableRegrade($holder) {
+  $holder.find('.regrade_enabled').hide()
+  $holder.find('.regrade_disabled').show()
+  $holder.find('input[name="regrade_option"]').attr('disabled', true)
+  $holder.find('input[name="regrade_option"]').attr('checked', false)
+  $holder.find('input[name="regrade_disabled"]').val('1')
+  // Added this one to prevent the modal from opening
+  $holder.find('span.regrade_option').text('disabled')
 }
