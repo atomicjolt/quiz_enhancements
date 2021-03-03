@@ -18,6 +18,8 @@
 
 import $ from 'jquery'
 
+// These are functions copied from Canvas, with some minor changes
+
 export function makeFormAnswer(data) {
   const {quiz} = window
   const answer = $.extend({}, quiz.defaultAnswerData, data)
@@ -29,6 +31,8 @@ export function makeFormAnswer(data) {
     .hide()
     .filter('.' + answer.answer_type)
     .show()
+
+  // Disabling this since it's unnecessary and we don't want to bring in numberHelper
   // answer.answer_weight = numberHelper.parse(answer.answer_weight)
 
   if (isNaN(answer.answer_weight)) {
