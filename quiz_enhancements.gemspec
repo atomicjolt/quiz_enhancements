@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "quiz_enhancements"
   spec.version       = QuizEnhancements::VERSION
   spec.authors       = ["Ryker Blunck"]
-  spec.email         = ["rykerblunck@gmail.com"]
+  spec.email         = ["ryker.blunck@atomicjolt.com"]
 
   spec.summary       = %q{Canvas Quizzes enhancements}
   spec.homepage      = "https://atomicjolt.com"
