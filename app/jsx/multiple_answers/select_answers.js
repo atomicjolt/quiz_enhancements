@@ -12,6 +12,10 @@ export default function CopyAnswers(props) {
     onSubmit(currentOptions)
   }
 
+  if (!vars.length) {
+    return <p>There are no other variables to copy answers from.</p>
+  }
+
   return (
     <form className="form-dialog" onSubmit={formSubmit}>
       <p>
