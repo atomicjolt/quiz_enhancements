@@ -15,7 +15,7 @@ import {disableRegrade} from './canvas_functions'
 
 $(() => {
   $('.multi_answer_sets .blank_id_select').after(
-    '<button class="aj_copy_answers_button">Copy Answers</button>'
+    '<button class="btn btn-small aj_copy_answers_button">Copy Answers</button>'
   )
 
   $('#questions').delegate('.aj_copy_answers_button', 'click', function(e) {
@@ -32,7 +32,7 @@ $(() => {
       .closest('.text')
       .find('.form_answers')
 
-    const modal = new Modal()
+    const modal = new Modal({title: 'Copy Answers', width: 600})
 
     ReactDOM.render(
       <SelectAnswers

@@ -13,7 +13,7 @@ export default function CopyAnswers(props) {
   }
 
   return (
-    <form onSubmit={formSubmit}>
+    <form className="form-dialog" onSubmit={formSubmit}>
       <p>
         Please choose a variable to copy answers from. This will replace any answers in the current
         variable
@@ -37,10 +37,20 @@ export default function CopyAnswers(props) {
           <li key={`${i}-${text}`}>{text}</li>
         ))}
       </ul>
-      <button type="button" onClick={onCancel}>
-        Cancel
-      </button>
-      <input type="submit" value="Submit" />
+
+      <div className="form-controls">
+        <button type="button" className="btn dialog_closer" onClick={onCancel}>
+          Cancel
+        </button>
+        &nbsp;
+        <input
+          id="newGroupSubmitButton"
+          type="submit"
+          value="Save"
+          className="btn btn-primary"
+          data-text-while-loading="Saving..."
+        />
+      </div>
     </form>
   )
 }
