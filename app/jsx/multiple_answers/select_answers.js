@@ -29,18 +29,26 @@ export default function CopyAnswers(props) {
         </p>
       )}
 
-      <select value={selectedVar} onChange={e => setSelectedVar(e.target.value)}>
+      <label htmlFor="selected_variable">Choose Variable</label>
+      <select
+        id="selected_variable"
+        value={selectedVar}
+        onChange={e => setSelectedVar(e.target.value)}
+      >
         {vars.map(varName => (
           <option key={varName} value={varName}>
             {varName}
           </option>
         ))}
       </select>
-      <ul>
-        {currentOptions.map(({text}, i) => (
-          <li key={`${i}-${text}`}>{text}</li>
-        ))}
-      </ul>
+      <div>
+        <strong>Answers:</strong>
+        <ul>
+          {currentOptions.map(({text}, i) => (
+            <li key={`${i}-${text}`}>{text}</li>
+          ))}
+        </ul>
+      </div>
 
       <div className="form-controls">
         <button type="button" className="btn dialog_closer" onClick={onCancel}>
