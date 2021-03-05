@@ -7,7 +7,8 @@ import {
   gatherVars,
   gatherOptions,
   gatherQuestionType,
-  gatherWillDisableRegrade
+  gatherWillDisableRegrade,
+  $answersHolder
 } from './gather_data'
 import SelectAnswers from './select_answers'
 import {copyAnswers, deleteCurrentAnswers} from './edit_answers'
@@ -22,15 +23,14 @@ $(() => {
     e.preventDefault()
 
     const $question = $(this).closest('.question_holder')
-    const {id: currentVar, index: currentVarIndex} = gatherCurrentVar($(this))
-    const vars = gatherVars($(this))
-    const options = gatherOptions($(this))
-    const questionType = gatherQuestionType($(this))
-    const willDisableRegrade = gatherWillDisableRegrade($(this))
 
-    const $answers = $(this)
-      .closest('.text')
-      .find('.form_answers')
+    const {id: currentVar, index: currentVarIndex} = gatherCurrentVar($question)
+    const vars = gatherVars($question)
+    const options = gatherOptions($question)
+    const questionType = gatherQuestionType($question)
+    const willDisableRegrade = gatherWillDisableRegrade($question)
+
+    const $answers = $answersHolder($question)
 
     const modal = new Modal({title: 'Copy Answers', width: 600})
 

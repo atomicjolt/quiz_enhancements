@@ -1,7 +1,15 @@
 import $ from 'jquery'
 
-export function gatherCurrentVar($button) {
-  const $select = $button.parent().find('.blank_id_select')
+function $varSelect($question) {
+  return $question.find('.question_form .blank_id_select')
+}
+
+export function $answersHolder($question) {
+  return $question.find('.form_answers')
+}
+
+export function gatherCurrentVar($question) {
+  const $select = $varSelect($question)
 
   return {
     id: $select.val(),
@@ -9,10 +17,9 @@ export function gatherCurrentVar($button) {
   }
 }
 
-export function gatherVars($button) {
-  return $button
-    .parent()
-    .find('.blank_id_select option')
+export function gatherVars($question) {
+  return $varSelect($question)
+    .find('option')
     .not('.shown_when_no_other_options_available')
     .not(':selected')
     .map(function() {
@@ -21,17 +28,17 @@ export function gatherVars($button) {
     .toArray()
 }
 
-export function gatherOptions($button) {
+export function gatherOptions($question) {
   const options = {}
 
-  $button
-    .closest('.text')
-    .find('.form_answers .answer')
+  $answersHolder($question)
+    .find('.answer')
     .each(function() {
       const varName = $(this)
         .find('.blank_id')
         .text()
 
+      // short is for fitb
       const text = $(this)
         .find('.short_answer input')
         .val()
@@ -51,20 +58,16 @@ export function gatherOptions($button) {
   return options
 }
 
-export function gatherQuestionType($button) {
-  return $button
-    .closest('.question')
-    .find('.question_type')
-    .val()
+export function gatherQuestionType($question) {
+  return $question.find('select.question_type').val()
 }
 
 // based on logic in $('.delete_answer_link').click() in canvas
-export function gatherWillDisableRegrade($button) {
-  const $holder = $button.closest('.question_holder')
-  const $regradeOpt = $holder.find('span.regrade_option')
+export function gatherWillDisableRegrade($question) {
+  const $regradeOpt = $question.find('span.regrade_option')
 
   const disabled = $regradeOpt.text() === 'disabled'
-  const isNew = $holder.find('#question_new').length > 0
+  const isNew = $question.find('#question_new').length > 0
   const hasSubmissions = !!$('#student_submissions_warning').length
 
   return hasSubmissions && !disabled && !isNew
