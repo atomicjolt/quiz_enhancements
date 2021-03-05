@@ -32,7 +32,7 @@ export default function CopyAnswers(props) {
 
       <div>
         <label htmlFor="selected_variable">
-          Choose Variable
+          Choose Variable &nbsp;
           <select
             id="selected_variable"
             value={selectedVar}
@@ -47,13 +47,11 @@ export default function CopyAnswers(props) {
         </label>
       </div>
 
-      <div>
-        <strong>Answers:</strong>
-        <div>
-          {currentOptions.map(({text}, i) => (
-            <p key={`${i}-${text}`}>{text}</p>
-          ))}
-        </div>
+      <strong>Answers:</strong>
+      <div className="aj_copy_answer_scroll_container">
+        {currentOptions.map(({text}, i) => (
+          <p key={`${i}-${text}`}>{text}</p>
+        ))}
       </div>
 
       <div className="form-controls">
