@@ -2,16 +2,8 @@ import $ from 'jquery'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Modal from './modal'
-import {
-  gatherCurrentVar,
-  gatherVars,
-  gatherOptions,
-  gatherQuestionType,
-  gatherWillDisableRegrade,
-  $answersHolder
-} from './gather_data'
 import SelectAnswers from './select_answers'
-import {copyAnswers, deleteCurrentAnswers} from './edit_answers'
+import DomManager from './dom_manager'
 import {disableRegrade} from './canvas_functions'
 
 $(() => {
@@ -22,29 +14,22 @@ $(() => {
   $('#questions').delegate('.aj_copy_answers_button', 'click', function(e) {
     e.preventDefault()
 
-    const $question = $(this).closest('.question_holder')
-
-    const {id: currentVar, index: currentVarIndex} = gatherCurrentVar($question)
-    const vars = gatherVars($question)
-    const options = gatherOptions($question)
-    const questionType = gatherQuestionType($question)
-    const willDisableRegrade = gatherWillDisableRegrade($question)
-
-    const $answers = $answersHolder($question)
+    const dom = new DomManager(this)
+    const {otherVars, allAnswers, willDisableRegrade} = dom
 
     const modal = new Modal({title: 'Copy Answers', width: 600})
 
     ReactDOM.render(
       <SelectAnswers
-        vars={vars}
-        options={options}
+        vars={otherVars}
+        options={allAnswers}
         onCancel={() => modal.close()}
         onSubmit={selectedOptions => {
           if (willDisableRegrade) {
-            disableRegrade($question)
+            disableRegrade(dom.$q)
           }
-          deleteCurrentAnswers($(this), currentVarIndex)
-          copyAnswers(questionType, currentVar, currentVarIndex, selectedOptions, $answers)
+          dom.deleteCurrentAnswers()
+          dom.copyAnswers(selectedOptions)
           modal.close()
         }}
       />,
