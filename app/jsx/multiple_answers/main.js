@@ -22,14 +22,14 @@ $(() => {
     ReactDOM.render(
       <SelectAnswers
         vars={otherVars}
-        options={allAnswers}
+        answers={allAnswers}
         onCancel={() => modal.close()}
-        onSubmit={selectedOptions => {
+        onSubmit={selectedAnswers => {
           if (willDisableRegrade) {
             disableRegrade(dom.$q)
           }
           dom.deleteCurrentAnswers()
-          dom.copyAnswers(selectedOptions)
+          dom.copyAnswers(selectedAnswers)
           modal.close()
         }}
       />,

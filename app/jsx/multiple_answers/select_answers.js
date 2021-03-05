@@ -1,15 +1,15 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 
-export default function CopyAnswers(props) {
-  const {vars, options, onCancel, onSubmit} = props
+export default function SelectAnswers(props) {
+  const {vars, answers, onCancel, onSubmit} = props
 
   const [selectedVar, setSelectedVar] = useState(vars[0])
-  const currentOptions = options[selectedVar]
+  const currentAnswers = answers[selectedVar]
 
   const formSubmit = e => {
     e.preventDefault()
-    onSubmit(currentOptions)
+    onSubmit(currentAnswers)
   }
 
   if (!vars.length) {
@@ -42,7 +42,7 @@ export default function CopyAnswers(props) {
 
       <strong>Answers:</strong>
       <div className="aj_copy_answer_scroll_container">
-        {currentOptions.map(({text}, i) => (
+        {currentAnswers.map(({text}, i) => (
           <p key={`${i}-${text}`}>{text}</p>
         ))}
       </div>
@@ -64,9 +64,9 @@ export default function CopyAnswers(props) {
   )
 }
 
-CopyAnswers.propTypes = {
+SelectAnswers.propTypes = {
   vars: PropTypes.arrayOf(PropTypes.string).isRequired,
-  options: PropTypes.objectOf(
+  answers: PropTypes.objectOf(
     PropTypes.arrayOf(
       PropTypes.shape({
         text: PropTypes.string,
