@@ -38,7 +38,6 @@ $(() => {
       <SelectAnswers
         vars={vars}
         options={options}
-        willDisableRegrade={willDisableRegrade}
         onCancel={() => modal.close()}
         onSubmit={selectedOptions => {
           if (willDisableRegrade) {
