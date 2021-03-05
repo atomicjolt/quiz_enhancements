@@ -35,6 +35,7 @@ export default class DomManager {
   get allAnswers() {
     const options = {}
 
+    const dom = this
     this.$answersHolder.find('.answer').each(function() {
       const varName = $(this)
         .find('.blank_id')
@@ -42,7 +43,7 @@ export default class DomManager {
 
       // short is for fitb
       const text = $(this)
-        .find('.short_answer input')
+        .find(`.${dom.answerType} input`)
         .val()
 
       const comment = $(this)
@@ -64,6 +65,12 @@ export default class DomManager {
     return this.$q.find('select.question_type').val()
   }
 
+  get answerType() {
+    return this.questionType === 'fill_in_multiple_blanks_question'
+      ? 'short_answer'
+      : 'select_answer'
+  }
+
   // based on logic in $('.delete_answer_link').click() in canvas
   get gatherWillDisableRegrade() {
     const $regradeOpt = this.$q.find('span.regrade_option')
@@ -78,7 +85,7 @@ export default class DomManager {
   copyAnswers(selectedOptions) {
     const baseAnswer = {
       comments: 'Response if the student chooses this answer',
-      answer_type: 'short_answer',
+      answer_type: this.answerType,
       question_type: this.questionType,
       blank_id: this.selectedVar.id,
       blank_index: this.selectedVar.index
