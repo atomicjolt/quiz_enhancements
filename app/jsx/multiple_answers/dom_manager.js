@@ -34,6 +34,7 @@ export default class DomManager {
 
   get allAnswers() {
     const options = {}
+    this.otherVars.forEach(varName => (options[varName] = []))
 
     const dom = this
     this.$answersHolder.find('.answer').each(function() {
@@ -52,10 +53,9 @@ export default class DomManager {
 
       const isCorrect = $(this).hasClass('correct_answer')
 
-      if (!options.hasOwnProperty(varName)) {
-        options[varName] = []
+      if (options.hasOwnProperty(varName)) {
+        options[varName].push({text, comment, isCorrect})
       }
-      options[varName].push({text, comment, isCorrect})
     })
 
     return options
