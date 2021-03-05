@@ -22,6 +22,7 @@ export default function CopyAnswers(props) {
         Please choose a variable to copy answers from. This will replace any answers in the current
         variable
       </p>
+
       {willDisableRegrade && (
         <p>
           Deleting answers from a question with submissions disables the option to regrade this
@@ -29,25 +30,30 @@ export default function CopyAnswers(props) {
         </p>
       )}
 
-      <label htmlFor="selected_variable">Choose Variable</label>
-      <select
-        id="selected_variable"
-        value={selectedVar}
-        onChange={e => setSelectedVar(e.target.value)}
-      >
-        {vars.map(varName => (
-          <option key={varName} value={varName}>
-            {varName}
-          </option>
-        ))}
-      </select>
+      <div>
+        <label htmlFor="selected_variable">
+          Choose Variable
+          <select
+            id="selected_variable"
+            value={selectedVar}
+            onChange={e => setSelectedVar(e.target.value)}
+          >
+            {vars.map(varName => (
+              <option key={varName} value={varName}>
+                {varName}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+
       <div>
         <strong>Answers:</strong>
-        <ul>
+        <div>
           {currentOptions.map(({text}, i) => (
-            <li key={`${i}-${text}`}>{text}</li>
+            <p key={`${i}-${text}`}>{text}</p>
           ))}
-        </ul>
+        </div>
       </div>
 
       <div className="form-controls">
