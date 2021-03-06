@@ -25,6 +25,8 @@ $(() => {
         answers={allAnswers}
         onCancel={() => modal.close()}
         onSubmit={selectedAnswers => {
+          // if we don't disable regrading, it will open a confirm dialog once
+          // for each answer we delete
           if (willDisableRegrade) {
             disableRegrade(dom.$q)
           }

@@ -42,7 +42,6 @@ export default class DomManager {
         .find('.blank_id')
         .text()
 
-      // short is for fitb
       const text = $(this)
         .find(`.${dom.answerType} input`)
         .val()
@@ -72,7 +71,7 @@ export default class DomManager {
   }
 
   // based on logic in $('.delete_answer_link').click() in canvas
-  get gatherWillDisableRegrade() {
+  get willDisableRegrade() {
     const $regradeOpt = this.$q.find('span.regrade_option')
 
     const disabled = $regradeOpt.text() === 'disabled'
