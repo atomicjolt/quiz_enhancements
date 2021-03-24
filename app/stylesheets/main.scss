@@ -1,1 +1,12 @@
 // custom styles go here
+.aj_copy_answers_button {
+  margin: 0 0 8px 6px;
+}
+
+.aj_copy_answer_scroll_container {
+  border: 1px solid #C7CDD1;
+  border-radius: 3px;
+  padding: 0 10px;
+  max-height: 220px;
+  overflow: auto;
+}
